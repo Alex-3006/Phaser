@@ -23,5 +23,6 @@ let keyS;
 let keyD;
 let keyW;
 let score;
-let a = 0;
+let a = -1000;
 let b = 0;
+let platforms;

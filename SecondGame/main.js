@@ -14,11 +14,11 @@ class Main extends Phaser.Scene {
     }
 
     create() {
-        player = this.physics.add.sprite(300, 515, 'player');
+        player = this.physics.add.sprite(500, 475, 'player');
 
         player.setBounce(0.2);
 
-        player.body.setGravityY(300)
+        player.body.setGravityY(500)
 
         player.setCollideWorldBounds(true);
 
@@ -26,31 +26,47 @@ class Main extends Phaser.Scene {
         scoreText.scrollFactorX = 0;
         scoreText.scrollFactorY = 0;
 
+        platforms = this.physics.add.staticGroup();
+
         while (a != 1000) {
             b = Math.round(Math.random() * 3)
             // var sprite = scene.add.sprite(x, y, key, frame);
             if (b === 0) {
-                this.add.sprite(200, 200, 'block_1');
+                platforms.create(a * 7, 550, 'block_1').refreshBody();
             }
             else if (b === 1) {
-                this.add.sprite(200, 200, 'block_2');
+                platforms.create(a * 7, 550, 'block_2').refreshBody();
             }
             else if (b === 2) {
-                this.add.sprite(200, 200, 'block_2');
+                platforms.create(a * 7, 550, 'block_3').refreshBody();
             }
 
             b = Math.round(Math.random() * 3)
             if (b === 0) {
-                this.add.sprite(200, 200, 'dirt_1');
+                platforms.create(a * 7, 575, 'dirt_1').refreshBody();
             }
             else if (b === 1) {
-
+                platforms.create(a * 7, 575, 'dirt_2').refreshBody();
             }
             else if (b === 2) {
-
+                platforms.create(a * 7, 575, 'dirt_3').refreshBody();
             }
+
+            b = Math.round(Math.random() * 3)
+            if (b === 0) {
+                platforms.create(a * 7, 600, 'dirt_1').refreshBody();
+            }
+            else if (b === 1) {
+                platforms.create(a * 7, 600, 'dirt_2').refreshBody();
+            }
+            else if (b === 2) {
+                platforms.create(a * 7, 600, 'dirt_3').refreshBody();
+            }
+
             a++;
         }
+
+        this.physics.add.collider(player, platforms);
 
         cursors = this.input.keyboard.createCursorKeys();
 
@@ -59,8 +75,8 @@ class Main extends Phaser.Scene {
         keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
 
-        // this.cameras.main.startFollow(player);
-        // this.cameras.main.followOffset.set(0, 250);
+        this.cameras.main.startFollow(player);
+        this.cameras.main.followOffset.set(0, 200);
     }
 
     update() {
